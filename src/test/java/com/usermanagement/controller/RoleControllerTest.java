@@ -33,16 +33,13 @@ class RoleControllerTest {
 
     @Test
     void createRole_ShouldReturnCreatedRole() {
-        // Arrange
         CreateRoleDto createRoleDto = new CreateRoleDto();
         createRoleDto.setName("ROLE_USER");
         RoleDto roleDto = new RoleDto();
         when(roleService.createRole(any(CreateRoleDto.class))).thenReturn(roleDto);
 
-        // Act
         ResponseEntity<RoleDto> response = roleController.createRole(createRoleDto);
 
-        // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(roleDto, response.getBody());
         verify(roleService, times(1)).createRole(any(CreateRoleDto.class));
@@ -50,15 +47,12 @@ class RoleControllerTest {
 
     @Test
     void createRoles_ShouldReturnCreatedRoles() {
-        // Arrange
         List<CreateRoleDto> createRoleDtos = Arrays.asList(new CreateRoleDto(), new CreateRoleDto());
         List<RoleDto> roleDtos = Arrays.asList(new RoleDto(), new RoleDto());
         when(roleService.createRoles(anyList())).thenReturn(roleDtos);
 
-        // Act
         ResponseEntity<List<RoleDto>> response = roleController.createRoles(createRoleDtos);
 
-        // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(roleDtos, response.getBody());
         verify(roleService, times(1)).createRoles(anyList());
